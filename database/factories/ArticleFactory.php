@@ -18,6 +18,7 @@ class ArticleFactory extends Factory
     public function definition(): array
     {
         return [
+            'cover_image_url' => fake()->url(),
             'title' => fake()->sentence(),
             'content' => fake()->text(),
             'user_id' => User::factory()
