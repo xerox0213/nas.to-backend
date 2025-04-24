@@ -12,11 +12,11 @@ class ArticleController extends Controller
     private string $COVERS_FOLDER = "covers";
     private string $COVER_SUFFIX = "_cover";
 
-    private ImageUploader $imageService;
+    private ImageUploader $imageUploader;
 
-    public function __construct(ImageUploader $imageService)
+    public function __construct(ImageUploader $imageUploader)
     {
-        $this->imageService = $imageService;
+        $this->imageUploader = $imageUploader;
     }
 
     public function store(StoreArticle $request)
@@ -25,7 +25,7 @@ class ArticleController extends Controller
 
         if ($request->file()) {
             $coverImageName = $this->getCoverImageName();
-            $coverImageUrl = $this->imageService->upload($request, $this->COVERS_FOLDER, $coverImageName);
+            $coverImageUrl = $this->imageUploader->upload($request, $this->COVERS_FOLDER, $coverImageName);
 
             if (!$coverImageUrl) {
                 return response()->json([
