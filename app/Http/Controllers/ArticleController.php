@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreArticle;
-use App\Models\Article;
 use App\Services\ImageUploader;
 use Illuminate\Support\Facades\Auth;
 
