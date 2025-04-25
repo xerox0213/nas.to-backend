@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 class ArticleController extends Controller
 {
-    private string $COVERS_FOLDER = "covers";
+    private string $COVER_FOLDER = "article_covers";
     private string $COVER_SUFFIX = "_cover";
 
     private ImageUploader $imageUploader;
@@ -26,7 +26,7 @@ class ArticleController extends Controller
 
         if ($coverImage) {
             $coverImageName = $this->getCoverImageName();
-            $coverImageUrl = $this->imageUploader->upload($coverImage, $this->COVERS_FOLDER, $coverImageName);
+            $coverImageUrl = $this->imageUploader->upload($coverImage, $this->COVER_FOLDER, $coverImageName);
 
             if (!$coverImageUrl) {
                 return response()->json([
