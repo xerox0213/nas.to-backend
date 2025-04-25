@@ -2,9 +2,9 @@
 
 namespace App\Services;
 
-use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 
 interface ImageUploader
 {
-    public function upload(Request $request, string $folder, string $name): string;
+    public function upload(UploadedFile $image, string $folder, string $name): string;
 }

@@ -22,9 +22,11 @@ class ArticleController extends Controller
     {
         $articleData = $request->safe()->only(['content', 'title']);
 
-        if ($request->file()) {
+        $coverImage = $request->file('cover_image');
+
+        if ($coverImage) {
             $coverImageName = $this->getCoverImageName();
-            $coverImageUrl = $this->imageUploader->upload($request, $this->COVERS_FOLDER, $coverImageName);
+            $coverImageUrl = $this->imageUploader->upload($coverImage, $this->COVERS_FOLDER, $coverImageName);
 
             if (!$coverImageUrl) {
                 return response()->json([

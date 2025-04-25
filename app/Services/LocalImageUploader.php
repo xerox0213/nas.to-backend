@@ -2,13 +2,13 @@
 
 namespace App\Services;
 
-use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 
 class LocalImageUploader implements ImageUploader
 {
-    public function upload(Request $request, string $folder, string $name): string
+    public function upload(UploadedFile $image, string $folder, string $name): string
     {
-        $path = $request->file()->storeAs('covers', $name);
+        $path = $image->storeAs('covers', $name);
         return $path ? asset($path) : '';
     }
 }
