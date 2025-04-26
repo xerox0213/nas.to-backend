@@ -14,7 +14,7 @@ class StoreArticle extends FormRequest
     public function rules(): array
     {
         return [
-            'cover_image' => ['image'],
+            'cover_image' => ['image', 'file', 'mimes:jpeg,jpg,png,webp', 'size:2048'],
             'title' => ['required', 'string'],
             'content' => ['required', 'string']
         ];
