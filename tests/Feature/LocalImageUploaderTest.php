@@ -19,7 +19,7 @@ class LocalImageUploaderTest extends TestCase
         $this->imageUploader = new LocalImageUploader();
     }
 
-    public function test_should_upload_image(): void
+    public function test_should_upload_image_with_name(): void
     {
         $coverImage = UploadedFile::fake()->image('img.jpg');
         $coverImageName = '1' . $this->SUFFIX . '.' . $coverImage->extension();
