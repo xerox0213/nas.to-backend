@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserArticleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,5 +15,5 @@ Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
 Route::delete('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::apiResource('articles', ArticleController::class)->only('store');
+    Route::apiResource('articles', UserArticleController::class)->only('store');
 });

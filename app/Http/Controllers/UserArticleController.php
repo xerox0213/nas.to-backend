@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreArticle;
 use App\Services\ImageUploader;
 
-class ArticleController extends Controller
+class UserArticleController extends Controller
 {
     private string $COVER_FOLDER = "article_covers";
 
