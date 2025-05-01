@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreArticle;
+use App\Http\Requests\StoreUserArticle;
 use App\Services\ImageUploader;
 
 class UserArticleController extends Controller
@@ -16,7 +16,7 @@ class UserArticleController extends Controller
         $this->imageUploader = $imageUploader;
     }
 
-    public function store(StoreArticle $request)
+    public function store(StoreUserArticle $request)
     {
         $articleData = $request->safe()->only(['content', 'title']);
 
