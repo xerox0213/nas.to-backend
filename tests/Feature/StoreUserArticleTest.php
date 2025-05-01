@@ -6,11 +6,10 @@ use App\Models\User;
 use App\Services\ImageUploader;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
 use Mockery\MockInterface;
 use Tests\TestCase;
 
-class StoreArticle extends TestCase
+class StoreUserArticleTest extends TestCase
 {
     use RefreshDatabase;
 
