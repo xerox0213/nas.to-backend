@@ -9,7 +9,12 @@ class LocalImageUploader implements ImageUploader
 {
     public function upload(UploadedFile $image, string $folder, string $name): string
     {
-        $path = $image->storeAs($folder, $name, 'public');
+        if ($name) {
+            $path = $image->storeAs($folder, $name, 'public');
+        } else {
+            $path = $image->store($folder, 'public');
+        }
+
         return $path ? Storage::disk('public')->url($path) : '';
     }
 }
