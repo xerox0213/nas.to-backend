@@ -23,7 +23,6 @@ class IndexDiscoverArticleTest extends TestCase
                     "*" => [
                         'id',
                         'title',
-                        'content',
                         'created_at',
                         'updated_at',
                         'author' => [
