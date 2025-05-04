@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DiscoverArticleController;
+use App\Http\Controllers\MemberArticleController;
 use App\Http\Controllers\UserArticleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -20,3 +21,5 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 Route::get("/articles/discover", [DiscoverArticleController::class, 'index'])->name("discover-articles.index");
+
+Route::get("/articles/{article}", [MemberArticleController::class, 'show'])->name('articles.show');
