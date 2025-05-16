@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUserArticle;
+use App\Http\Requests\UpdateArticleRequest;
+use App\Models\Article;
 use App\Services\ImageUploader;
+use Illuminate\Support\Facades\Gate;
 
 class UserArticleController extends Controller
 {
@@ -36,5 +39,41 @@ class UserArticleController extends Controller
         $article = $request->user()->articles()->create($articleData);
 
         return response()->json(["id" => $article->id], 201);
+    }
+
+    public function update(Article $article, UpdateArticleRequest $request)
+    {
+        Gate::authorize('update', $article);
+
+        if ($article->cover_image_url) {
+            $isDeleted = $this->imageUploader->delete($article->cover_image_url);
+
+            if (!$isDeleted) {
+                return response()->json([
+                    'message' => 'An error has occurred. Please try later.',
+                ], 500);
+            }
+        }
+
+        $articleData = $request->safe()->only(['content', 'title']);
+        $coverImage = $request->file('cover_image');
+
+        if ($coverImage) {
+            $coverImageUrl = $this->imageUploader->upload($coverImage, $this->COVER_FOLDER);
+
+            if (!$coverImageUrl) {
+                return response()->json([
+                    'message' => 'An error has occurred. Please try later.',
+                ], 500);
+            }
+
+            $articleData['cover_image_url'] = $coverImageUrl;
+        } else {
+            $articleData['cover_image_url'] = null;
+        }
+
+        $article->update($articleData);
+
+        return response()->noContent();
     }
 }
