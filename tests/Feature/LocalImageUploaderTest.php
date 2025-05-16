@@ -5,13 +5,13 @@ namespace Tests\Feature;
 use App\Services\LocalImageUploader;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Tests\TestCase;
 
 class LocalImageUploaderTest extends TestCase
 {
     private LocalImageUploader $imageUploader;
     private string $FOLDER = 'articles_cover';
-    private string $SUFFIX = '_cover';
 
     protected function setUp(): void
     {
@@ -21,13 +21,11 @@ class LocalImageUploaderTest extends TestCase
 
     public function test_should_upload_image_with_name(): void
     {
+        Storage::fake('public');
         $coverImage = UploadedFile::fake()->image('img.jpg');
-        $coverImageName = '1' . $this->SUFFIX . '.' . $coverImage->extension();
-        $pathCoverImage = $this->FOLDER . DIRECTORY_SEPARATOR . $coverImageName;
-        $coverImageUrl = $this->imageUploader->upload($coverImage, $this->FOLDER, $coverImageName);
-        $expectedCoverImageUrl = Storage::url($pathCoverImage);
-
+        $coverImageUrl = $this->imageUploader->upload($coverImage, $this->FOLDER);
+        $base = Storage::disk('public')->url('');
+        $pathCoverImage = Str::after($coverImageUrl, $base);
         Storage::disk('public')->assertExists($pathCoverImage);
-        $this->assertEquals($expectedCoverImageUrl, $coverImageUrl);
     }
 }

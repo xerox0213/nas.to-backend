@@ -19,11 +19,10 @@ class UserArticleController extends Controller
     public function store(StoreUserArticle $request)
     {
         $articleData = $request->safe()->only(['content', 'title']);
-
         $coverImage = $request->file('cover_image');
 
         if ($coverImage) {
-            $coverImageUrl = $this->imageUploader->upload($coverImage, $this->COVER_FOLDER, '');
+            $coverImageUrl = $this->imageUploader->upload($coverImage, $this->COVER_FOLDER);
 
             if (!$coverImageUrl) {
                 return response()->json([

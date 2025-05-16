@@ -6,5 +6,5 @@ use Illuminate\Http\UploadedFile;
 
 interface ImageUploader
 {
-    public function upload(UploadedFile $image, string $folder, string $name): string;
+    public function upload(UploadedFile $image, string $folder): string;
 }

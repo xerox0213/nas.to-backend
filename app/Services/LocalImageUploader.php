@@ -7,14 +7,9 @@ use Illuminate\Support\Facades\Storage;
 
 class LocalImageUploader implements ImageUploader
 {
-    public function upload(UploadedFile $image, string $folder, string $name): string
+    public function upload(UploadedFile $image, string $folder): string
     {
-        if ($name) {
-            $path = $image->storeAs($folder, $name, 'public');
-        } else {
-            $path = $image->store($folder, 'public');
-        }
-
+        $path = $image->store($folder, 'public');
         return $path ? Storage::disk('public')->url($path) : '';
     }
 }
