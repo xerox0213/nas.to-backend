@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUserArticle;
 use App\Http\Requests\UpdateArticleRequest;
+use App\Http\Resources\ArticleDetailsResource;
 use App\Models\Article;
 use App\Services\ImageUploader;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
 class UserArticleController extends Controller
@@ -17,6 +19,12 @@ class UserArticleController extends Controller
     public function __construct(ImageUploader $imageUploader)
     {
         $this->imageUploader = $imageUploader;
+    }
+
+    public function index(Request $request)
+    {
+        $articles = $request->user()->articles()->orderByDesc("created_at")->simplePaginate(10);
+        return ArticleDetailsResource::collection($articles);
     }
 
     public function store(StoreUserArticle $request)

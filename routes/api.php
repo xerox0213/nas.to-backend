@@ -17,7 +17,7 @@ Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
 Route::delete('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::apiResource('articles', UserArticleController::class)->only('store', 'update');
+    Route::apiResource('articles', UserArticleController::class)->only('index', 'store', 'update');
 });
 
 Route::get("/articles/discover", [DiscoverArticleController::class, 'index'])->name("discover-articles.index");
